@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from django.conf import global_settings
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -27,6 +28,8 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+TEMPLATE_CONTEXT_PROCESSORS = ('utils.context_processors.ecomStore',)
+TEMPLATE_CONTEXT_PROCESSORS += global_settings.TEMPLATE_CONTEXT_PROCESSORS
 
 # Application definition
 
@@ -37,6 +40,12 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.flatpages',
+    'catalog',
+    'utils',
+    'cart',
+    'accounts',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -46,9 +55,13 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 )
 
 ROOT_URLCONF = 'ecomstore.urls'
+
+SITE_ID = 1
 
 WSGI_APPLICATION = 'ecomstore.wsgi.application'
 
@@ -82,9 +95,13 @@ USE_L10N = True
 
 USE_TZ = True
 
+SITE_NAME = 'Modern Musician'
+META_KEYWORDS = 'Music,instruments,music accessories,musician supplies'
+META_DESCRIPTION = 'Modern Musician is an online supplier of instruments,sheet music,and other accessories for musicians'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
-
+#MEDIA_URL = '/static/'
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (

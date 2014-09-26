@@ -1,0 +1,7 @@
+{% with cart_count=cart_item_count %}
+<a href="{% url 'show_cart' %}">
+	Shopping Cart
+	<br/>
+	{{cart_count}} Item{{cart_count|pluralize}}
+</a>
+{% endwith %}
